@@ -26,7 +26,7 @@ func main11()  {
 3. 要有关闭锁
  */
 
-func consumer3(msg chan int)  {
+func consumer33(msg chan int)  {
 	defer wg4.Done()
 	fmt.Println(<- msg)
 }
@@ -38,7 +38,7 @@ func main()  {
 	msg = make(chan int)
 
 	wg4.Add(1)
-	go consumer3(msg)
+	go consumer33(msg)
 
 	msg <- 1 // 这里会阻塞，所以 go consumer3(msg) 得放在上面
 

@@ -53,21 +53,21 @@ Wait()
 Add 的数量 和 Done的数量必须相等
  */
 
-var wg sync.WaitGroup
+var wgg sync.WaitGroup
 
 func print(n int)  {
-	defer wg.Done() // 减1
+	defer wgg.Done() // 减1
 	fmt.Println(n)
 }
 
 func main()  {
 
-	wg.Add(2) // 总共有多少个
+	wgg.Add(2) // 总共有多少个
 
 	for i:=0; i< 5; i++ {
 		go print(i)
 	}
 
 	// 阻塞主协程
-	wg.Wait()
+	wgg.Wait()
 }
