@@ -24,20 +24,22 @@ func main1()  {
 	time.Sleep(time.Second * 2)
 }
 
-func main2()  {
+func print4(j int) {
+	fmt.Println("I am p method",  j)
+}
 
-	for i:=0; i< 100; i++ {
-		// 匿名
-		go func() {
-			for {
-				fmt.Println("I am p method",  i)
-				time.Sleep(time.Second)
-			}
-		}()
+func main2()  {
+	for i:=0; i< 10; i++ {
+		go print4(i)
 	}
 
+	fmt.Println("I am main method")
 
-	time.Sleep(time.Second * 2)
+	// 10 s
+	time.Sleep(time.Second * 10)
+	// 或者
+	// 无限循环
+	for{}
 }
 
 
@@ -53,21 +55,23 @@ Wait()
 Add 的数量 和 Done的数量必须相等
  */
 
-var wgg sync.WaitGroup
 
-func print(n int)  {
-	defer wgg.Done() // 减1
-	fmt.Println(n)
+func print(n int, wg *sync.WaitGroup)  {
+	defer wg.Done() // 减1
+	fmt.Println("I am p method",  n)
 }
 
 func main()  {
+	var wgg sync.WaitGroup
 
-	wgg.Add(2) // 总共有多少个
+	wgg.Add(10) // 总共有多少个
 
-	for i:=0; i< 5; i++ {
-		go print(i)
+	for i:=0; i< 10; i++ {
+		go print(i, &wgg)
 	}
 
 	// 阻塞主协程
 	wgg.Wait()
+
+	fmt.Println("I am main method")
 }
