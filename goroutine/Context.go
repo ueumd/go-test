@@ -60,13 +60,13 @@ func memoryInfo3(ctx context.Context)  {
 func main()  {
 	wgp3.Add(2)
 
+	// 返回一个空的ctx
 	ctx, cancel := context.WithCancel(context.Background())
 
 	go cpuInfo3(ctx)
 	// go memoryInfo3(ctx)
 
 	time.Sleep(time.Second*6)
-
 	// 6秒后不再监控
 	cancel()
 
